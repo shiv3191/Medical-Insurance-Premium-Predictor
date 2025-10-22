@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px 40px;
+            max-width: 600px;
+            width: 100%;
+            animation: slideIn 0.5s ease-out;
+            text-align: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .prediction-result {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            color: white;
+        }
+
+        .prediction-text {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .prediction-amount {
+            font-size: 48px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .details-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            color: #333;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 25px;
+            }
+            
+            .prediction-amount {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h2>Premium Calculated Successfully!</h2>
+        
+        <div class="prediction-result">
+            <div class="prediction-text">Your Estimated Premium</div>
+            <div class="prediction-amount">{{ prediction_text }}</div>
+        </div>
+
+        <div class="details-box">
+            <h3 style="color: #667eea; margin-bottom: 15px;">Your Details</h3>
+            <div class="detail-row">
+                <span class="detail-label">Age:</span>
+                <span class="detail-value">{{ age }} years</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Gender:</span>
+                <span class="detail-value">{{ 'Male' if sex == '1' else 'Female' }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">BMI:</span>
+                <span class="detail-value">{{ bmi }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Children:</span>
+                <span class="detail-value">{{ children }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Smoker:</span>
+                <span class="detail-value">{{ 'Yes' if smoker == '1' else 'No' }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Region:</span>
+                <span class="detail-value">
+                    {% if region == '0' %}Southeast
+                    {% elif region == '1' %}Southwest
+                    {% elif region == '2' %}Northeast
+                    {% else %}Northwest{% endif %}
+                </span>
+            </div>
+        </div>
+
+        <a href="/" class="back-btn">← Calculate Again</a>
+    </div>
+</body>
+</html>
